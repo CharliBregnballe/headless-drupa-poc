@@ -1,9 +1,9 @@
 <template>
   <div>
     <h1>Front Page</h1>
-    
-    <div v-for="content in frontpage.content.layout_builder__layout[0].regions.content" :key="content.id">      
-      <v-switch :case="content.bundle">
+    <div v-for="section in frontpage.content.layout_builder__layout" :key="section.id"> 
+      <div v-for="content in section.regions.content" :key="content.id">   
+        <v-switch :case="content.bundle">
         <template #rte>
           <Rte :data="content" />
         </template>
@@ -16,10 +16,23 @@
           <Article :data="content" />
         </template>
 
+        <template #article_form>
+          <ArticleForm :data="content" />
+        </template>
+
+        <template #hero>
+          <Hero :data="content" />
+        </template>
+
+        <template #quote>
+          <Quote :data="content" />
+        </template>
+
         <template #default>
-          Default
+          <h2>Unknown Element</h2>
         </template>
       </v-switch>
+      </div>
     </div>
   </div>
 </template>
